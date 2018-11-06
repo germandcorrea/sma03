@@ -1,0 +1,54 @@
+/** 
+ * 
+ */
+package test03
+
+import io.sarl.core.Logging
+import io.sarl.core.DefaultContextInteractions
+import io.sarl.core.ExternalContextAccess
+import io.sarl.core.Initialize
+import io.sarl.core.Schedules
+
+/** 
+ * @author gdc
+ * 
+ */
+event TestEvent{
+	val msg:String
+	new(msg:String){
+		this.msg=msg
+	}
+}
+
+interface Constantes{
+	val msgInterno : String = "Soy %s y recibí el Evento Interno %d"
+	val msgExterno : String = "Soy %s y recibí el Evento Externo %d"
+}
+
+agent BootAgent {
+	uses Logging, DefaultContextInteractions, ExternalContextAccess, Schedules 
+	
+	var index:Integer = 0;
+	
+	on Initialize{
+		every(10.seconds)[emitirEvento]
+	}
+	
+	on TestEvent{
+		info(occurrence.msg)
+	}
+	
+	def emitirEvento{
+		index++;
+		
+		//evento interno
+		val eInterno = new TestEvent(String.format(Constantes.msgInterno,getID,index))
+		emit(eInterno)
+		// defaultContext.defaultSpace.emit(getID,eInterno)
+		
+		// evento externo
+		val eExterno = new TestEvent(String.format(Constantes.msgExterno,getID,index))
+		getContext(parentID).defaultSpace.emit(eExterno)
+		
+	}
+}
