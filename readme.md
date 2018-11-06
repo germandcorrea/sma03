@@ -14,6 +14,8 @@ mvn package
 
 el **tag** es el nombre de la nueva **imagen**
 
+**"muy importante no olvidar el punto del final"**
+
 ```bash
 docker build --tag sma .
 ```
@@ -24,7 +26,7 @@ docker build --tag sma .
 docker run --rm sma
 ```
 
-### crear una red para los containers de SMA
+### Crear una red para los containers de SMA
 
 ```bash
 docker network create --driver bridge sma-net
@@ -39,7 +41,8 @@ docker network inspect sma-net
 
 ### Correr un Container con nombre en la red creada
 
-**--name** es el nombre del container
+**--name** es el nombre de cada uno de los container que se generará
+
 **--network** en nombre la de la red creada anteriormente
 
 ```bash
@@ -54,11 +57,11 @@ docker run --rm --name sma03 --network sma-net sma
 
 **-dit** es un conjunto de opciones
 
-    **-d** corre el container en background e imprime el id
+**-d** corre el container en background e imprime el id
 
-    **-i** Mantiene STDIN abierto incluso si no está conectado
+**-i** Mantiene STDIN abierto incluso si no está conectado
 
-    **-t** Asigna un pseudo tty
+**-t** Asigna un pseudo tty
 
 ```bash
 docker run -dit --name sma01 --network sma-net sma
