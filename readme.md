@@ -14,7 +14,7 @@ mvn package
 
 el **tag** es el nombre de la nueva **imagen**
 
-**"muy importante no olvidar el punto del final"**
+**Nota Muy Importante:** no olvidar el punto del final!!!
 
 ```bash
 docker build --tag sma .
@@ -37,7 +37,6 @@ docker network create --driver bridge sma-net
 ```bash
 docker network inspect sma-net
 ```
-
 
 ### Correr un Container con nombre en la red creada
 
